@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #002147;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dynamic-question-section {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .dynamic-question {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .dynamic-options button {
+            background: #002147;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .dynamic-options button:hover {
+            background: #0046ad;
+        }
+
+        .result-section {
+            display: none;
+            text-align: center;
+        }
+
+        .result-section h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .result-section p {
+            font-size: 1.2em;
+        }
+
+        #explore-btn {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #002147;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #explore-btn:hover {
+            background: #0046ad;
+        }
+
+        footer {
+            background: #002147;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Career Recommendation</h1>
+    </header>
+
+    <div class="container">
+        <div class="dynamic-question-section">
+            <p class="dynamic-question">Loading question...</p>
+            <div class="dynamic-options">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+        </div>
+        <div class="result-section">
+            <h2>Recommended Career</h2>
+            <p class="result"></p>
+            <button id="explore-btn">Explore Career Wings</button>
+        </div>
+    </div>
+
+   
+
+    <script>
+        const careers = [
+            "Graphic Designer",
+            "UI/UX Designer",
+            "Art Director",
+            "Brand Designer",
+            "Motion Graphic Designer",
+            "Web Designer",
+            "Packaging Designer",
+            "Illustrator",
+            "Creative Director",
+            "Print Designer",
+            "Marketing Designer",
+            "Video Editor",
+            "3D Modeler",
+            "3D Animator",
+            "Photographer",
+            "VFX Artist"
+        ];
+
+        const questions = [
+            {
+                question: "What type of work do you enjoy?",
+                options: [
+                    { label: "Creative Design", value: "Graphic Designer" },
+                    { label: "Problem Solving", value: "UI/UX Designer" }
+                ]
+            },
+            {
+                question: "Are you interested in animation?",
+                options: [
+                    { label: "Yes", value: "3D Animator" },
+                    { label: "No", value: "Illustrator" }
+                ]
+            },
+            {
+                question: "Do you prefer working with digital or physical media?",
+                options: [
+                    { label: "Digital", value: "Web Designer" },
+                    { label: "Physical", value: "Packaging Designer" }
+                ]
+            },
+            {
+                question: "What inspires you more in your work?",
+                options: [
+                    { label: "Team Collaboration", value: "Creative Director" },
+                    { label: "Independent Creativity", value: "Art Director" }
+                ]
+            },
+            {
+                question: "Do you enjoy creating marketing materials?",
+                options: [
+                    { label: "Yes", value: "Marketing Designer" },
+                    { label: "No", value: "Print Designer" }
+                ]
+            },
+            {
+                question: "Do you prefer creating motion or still visuals?",
+                options: [
+                    { label: "Motion", value: "Motion Graphic Designer" },
+                    { label: "Still", value: "Photographer" }
+                ]
+            },
+            {
+                question: "Are you more inclined towards 3D or VFX?",
+                options: [
+                    { label: "3D", value: "3D Modeler" },
+                    { label: "VFX", value: "VFX Artist" }
+                ]
+            },
+            {
+                question: "Do you enjoy video editing?",
+                options: [
+                    { label: "Yes", value: "Video Editor" },
+                    { label: "No", value: "Brand Designer" }
+                ]
+            },
+            {
+                question: "What is your favorite tool for creative work?",
+                options: [
+                    { label: "Adobe Photoshop", value: "Graphic Designer" },
+                    { label: "Sketch or Figma", value: "UI/UX Designer" }
+                ]
+            },
+            {
+                question: "Do you enjoy designing for packaging?",
+                options: [
+                    { label: "Yes", value: "Packaging Designer" },
+                    { label: "No", value: "Marketing Designer" }
+                ]
+            },
+            {
+                question: "Do you enjoy storytelling through visuals?",
+                options: [
+                    { label: "Yes", value: "Creative Director" },
+                    { label: "No", value: "Art Director" }
+                ]
+            },
+            {
+                question: "Do you have an interest in typography and print design?",
+                options: [
+                    { label: "Yes", value: "Print Designer" },
+                    { label: "No", value: "Web Designer" }
+                ]
+            },
+            {
+                question: "Do you enjoy creating animated visuals?",
+                options: [
+                    { label: "Yes", value: "Motion Graphic Designer" },
+                    { label: "No", value: "Illustrator" }
+                ]
+            },
+            {
+                question: "Do you prefer working with photographs or illustrations?",
+                options: [
+                    { label: "Photographs", value: "Photographer" },
+                    { label: "Illustrations", value: "Illustrator" }
+                ]
+            },
+            {
+                question: "Are you comfortable working with 3D modeling software?",
+                options: [
+                    { label: "Yes", value: "3D Modeler" },
+                    { label: "No", value: "Graphic Designer" }
+                ]
+            },
+            {
+                question: "Do you enjoy creating visual effects for videos?",
+                options: [
+                    { label: "Yes", value: "VFX Artist" },
+                    { label: "No", value: "Video Editor" }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        const userAnswers = [];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                document.querySelector(".dynamic-question").textContent = currentQuestion.question;
+
+                const optionsContainer = document.querySelector(".dynamic-options");
+                optionsContainer.innerHTML = "";
+
+                currentQuestion.options.forEach(option => {
+                    const button = document.createElement("button");
+                    button.textContent = option.label;
+                    button.dataset.answer = option.value;
+                    button.addEventListener("click", () => {
+                        userAnswers.push(option.value);
+                        currentQuestionIndex++;
+                        loadQuestion();
+                    });
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const resultCount = userAnswers.reduce((acc, answer) => {
+                acc[answer] = (acc[answer] || 0) + 1;
+                return acc;
+            }, {});
+
+            const recommendedCareer = Object.keys(resultCount).reduce((a, b) => resultCount[a] > resultCount[b] ? a : b, null);
+
+            document.querySelector(".result").textContent = careers.includes(recommendedCareer) 
+                ? recommendedCareer 
+                : "Career path could not be determined. Please try again.";
+
+            document.querySelector(".result-section").style.display = "block";
+            document.getElementById("explore-btn").style.display = "inline-block";
+            document.getElementById("explore-btn").addEventListener("click", () => {
+                window.location.href = "careerwing.html";
+            });
+        }
+
+        function init() {
+            const shuffledQuestions = shuffleArray(questions);
+            loadQuestion(shuffledQuestions);
+        }
+
+        init();
+    </script>
+</body>
+</html>

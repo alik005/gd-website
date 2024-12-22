@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #002147;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-content: center; /* Center the grid */
+        }
+
+        .gallery-item {
+            width: 250px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .gallery-item .caption {
+            padding: 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #002147;
+            background: #ffffff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        footer {
+            background: #002147;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Success Stories</h1>
+    </header>
+
+    <div class="container">
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Graphic Design Department. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const gallery = document.getElementById('gallery');
+        const savedStories = JSON.parse(localStorage.getItem('successStories')) || [];
+
+        // Load stories from localStorage and add them to the gallery
+        savedStories.forEach(({ image, caption }) => {
+            const galleryItem = document.createElement('div');
+            galleryItem.classList.add('gallery-item');
+
+            galleryItem.innerHTML = `
+                <img src="${image}" alt="Success Story">
+                <div class="caption">${caption}</div>
+            `;
+
+            gallery.appendChild(galleryItem);
+        });
+    </script>
+</body>
+</html>
