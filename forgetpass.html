@@ -3,89 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
+    <title>Forgot Password</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 100%;
+        .form-container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
             max-width: 400px;
         }
 
-        .container h1 {
+        h1 {
             text-align: center;
-            color: #002147;
-            margin-bottom: 20px;
+            color: #003366;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            color: #333;
         }
 
-        input[type="email"], input[type="password"] {
+        input, button {
+            width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-top: 5px;
+            border-radius: 5px;
             border: 1px solid #ccc;
-            border-radius: 4px;
             font-size: 1em;
         }
 
         button {
-            background: #002147;
+            background-color: #00509e;
             color: white;
+            font-weight: bold;
             border: none;
-            padding: 10px;
-            font-size: 1em;
-            border-radius: 4px;
             cursor: pointer;
+            margin-top: 15px;
         }
 
         button:hover {
-            background: #0046ad;
+            background-color: #0073e6;
         }
 
-        .forgot-link {
-            text-align: center;
-            margin-top: 10px;
-        }
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+            }
 
-        .forgot-link a {
-            text-decoration: none;
-            color: #002147;
-            font-size: 0.9em;
-        }
-
-        .forgot-link a:hover {
-            text-decoration: underline;
+            h1 {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Sign In</h1>
-        <form action="careerwing.html" method="post">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <input type="password" name="password" placeholder="Enter your password" required>
-            <button type="submit">Sign In</button>
+    <div class="form-container">
+        <h1>Forgot Password</h1>
+        <form action="/forgotpassword" method="POST">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="otp">OTP</label>
+            <input type="text" id="otp" name="otp" required>
+
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" name="new_password" required>
+
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm_password" required>
+
+            <button type="submit">Save</button>
         </form>
-        <div class="forgot-link">
-            <a href="forget_password.html">Forgot Password?</a>
-        </div>
     </div>
 </body>
 </html>

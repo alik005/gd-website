@@ -3,111 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Profile</title>
+    <title>Profile</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        header {
-            background-color: #002147;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-details {
-            text-align: left;
-        }
-
-        .profile-details img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto 20px;
-        }
-
-        .profile-details p {
-            font-size: 1.2em;
-            margin: 10px 0;
-        }
-
-        .form-actions {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .form-actions button {
-            padding: 10px 20px;
-            background-color: #002147;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-
-        .form-actions button:hover {
-            background-color: #0046ad;
-        }
-
-        .logout {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .logout a {
-            color: #002147;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .logout a:hover {
-            text-decoration: underline;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { max-width: 400px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+        h1 { text-align: center; color: #003366; }
+        p { margin: 10px 0; }
+        button { width: 100%; padding: 10px; background: #00509e; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        button:hover { background: #0073e6; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Profile</h1>
-    </header>
-
     <div class="container">
-        <div class="profile-details">
-            <img src="default-profile.png" alt="Profile Image" id="profile-image">
-            <p><strong>Name:</strong> <span id="name">John Doe</span></p>
-            <p><strong>Birth Date:</strong> <span id="birthdate">1990-01-01</span></p>
-            <p><strong>Address:</strong> <span id="address">123 Main Street</span></p>
-            <p><strong>Phone:</strong> <span id="phone">123-456-7890</span></p>
-            <p><strong>Email:</strong> <span id="phone">alik@gmail.com</span></p>
-        </div>
-
-        <div class="form-actions">
-            <button onclick="window.location.href='profileedit.html'">Edit Profile</button>
-        </div>
-
-        <div class="logout">
-            <a href="index.html">Log Out</a>
-        </div>
+        <h1>Your Profile</h1>
+        <div id="profile-data"></div>
+        <button onclick="logout()">Logout</button>
     </div>
+    <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+            window.location.href = "sign-in.html";
+        } else {
+            document.getElementById("profile-data").innerHTML = `
+                <p><strong>Name:</strong> ${user.name}</p>
+                <p><strong>Username:</strong> ${user.username}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Phone:</strong> ${user.phone}</p>
+            `;
+        }
+
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "sign-in.html";
+        }
+    </script>
 </body>
 </html>
