@@ -4,38 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
-        .container { max-width: 400px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
-        h1 { text-align: center; color: #003366; }
-        p { margin: 10px 0; }
-        button { width: 100%; padding: 10px; background: #00509e; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #0073e6; }
-    </style>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.3.0/auth0-spa.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Your Profile</h1>
-        <div id="profile-data"></div>
-        <button onclick="logout()">Logout</button>
-    </div>
+    <h1>Your Profile</h1>
+    <div id="profileInfo"></div>
+    <button onclick="logout()">Sign Out</button>
+
     <script>
-        const user = JSON.parse(localStorage.getItem("user"));
-        if (!user) {
-            window.location.href = "sign-in.html";
-        } else {
-            document.getElementById("profile-data").innerHTML = `
-                <p><strong>Name:</strong> ${user.name}</p>
-                <p><strong>Username:</strong> ${user.username}</p>
-                <p><strong>Email:</strong> ${user.email}</p>
-                <p><strong>Phone:</strong> ${user.phone}</p>
-            `;
+        // Initialize Auth0 client
+        let auth0;
+
+        async function initAuth0() {
+            auth0 = await createAuth0Client({
+                domain: 'dev-27zvae6yewwrl3m1.us.auth0.com', // Replace with your Auth0 domain
+                client_id: 'bSpLMj3SfSgM4xLQc6DXj2cpe5bu6fRI' // Replace with your Auth0 client ID
+            });
+
+            const user = await auth0.getUser();
+            if (user) {
+                document.getElementById('profileInfo').innerHTML = `
+                    <p><strong>Name:</strong> ${user.user_metadata.name}</p>
+                    <p><strong>Username:</strong> ${user.user_metadata.username}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Phone:</strong> ${user.user_metadata.phone}</p>
+                `;
+            } else {
+                document.getElementById('profileInfo').innerHTML = '<p>You are not logged in.</p>';
+            }
         }
 
         function logout() {
-            localStorage.removeItem("user");
-            window.location.href = "sign-in.html";
+            auth0.logout({
+                returnTo: window.location.href
+            });
         }
+
+        // Initialize Auth0 when the page loads
+        initAuth0();
     </script>
 </body>
 </html>

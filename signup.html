@@ -4,64 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
-        .container { max-width: 400px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
-        h1 { text-align: center; color: #003366; }
-        label { display: block; margin: 10px 0 5px; font-weight: bold; }
-        input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
-        button { width: 100%; padding: 10px; background: #00509e; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #0073e6; }
-    </style>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.3.0/auth0-spa.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Sign Up</h1>
-        <form id="signup-form">
-            <label for="name">Name</label>
-            <input type="text" id="name" required>
-            <label for="username">Username</label>
-            <input type="text" id="username" required>
-            <label for="email">Email</label>
-            <input type="email" id="email" required>
-            <label for="phone">Phone</label>
-            <input type="text" id="phone" required>
-            <label for="password">Password</label>
-            <input type="password" id="password" required>
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" required>
-            <button type="submit">Sign Up</button>
-        </form>
-    </div>
+    <h1>Sign Up</h1>
+    <form id="signupForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" required><br>
+
+        <label for="email">Official Email:</label>
+        <input type="email" id="email" required><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" required><br>
+
+        <button type="submit">Save</button>
+    </form>
+
     <script>
-        document.getElementById("signup-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const name = document.getElementById("name").value;
-            const username = document.getElementById("username").value;
-            const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm-password").value;
+        // Initialize Auth0 client
+        let auth0;
+
+        async function initAuth0() {
+            auth0 = await createAuth0Client({
+                domain: 'dev-27zvae6yewwrl3m1.us.auth0.com', // Replace with your Auth0 domain
+                client_id: 'bSpLMj3SfSgM4xLQc6DXj2cpe5bu6fRI' // Replace with your Auth0 client ID
+            });
+        }
+
+        async function signUp() {
+            const name = document.getElementById('name').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
             if (password !== confirmPassword) {
-                alert("Passwords do not match");
+                alert('Passwords do not match!');
                 return;
             }
 
-            const response = await fetch("https://gdwebsite.rf.gd/backend.php?action=signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, username, email, phone, password })
-            });
-
-            const result = await response.json();
-            if (result.success) {
-                alert("Sign-Up Successful!");
-                window.location.href = "sign-in.html";
-            } else {
-                alert(result.error);
+            if (!email.endsWith('@bsdi-bd.org')) {
+                alert('Please use a valid @bsdi-bd.org email address.');
+                return;
             }
+
+            try {
+                // Sign up with Auth0 using the hosted login page
+                await auth0.loginWithRedirect({
+                    redirect_uri: window.location.href, // Redirect back to the current page after login
+                    user_metadata: {
+                        name: name,
+                        username: username,
+                        phone: phone
+                    }
+                });
+
+                // Redirect to login page after successful signup
+                alert('Sign-up successful! Please check your email for verification.');
+                window.location.href = 'signin.html'; // Optional: Redirect after successful sign-up
+            } catch (error) {
+                console.error('Error signing up:', error.message);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            signUp();
         });
+
+        // Initialize Auth0 when the page loads
+        initAuth0();
     </script>
 </body>
 </html>
