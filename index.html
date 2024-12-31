@@ -235,7 +235,7 @@
             <a href="#">Counselling</a>
             <a href="faculty.html">Faculty</a>
             <a href="aboutus.html">About Us</a>
-            <a href="#" id="loginBtn" class="button">Sign In</a>
+            <a href="https://dev-27zvae6yewwrl3m1.us.auth0.com/authorize?response_type=token&client_id=GqoX1y8guXZUic40jtRepYof1EpdnkMC&redirect_uri=https://alik005.github.io/gd-website/careerwing.html&connection=google-oauth2&hd=bsdi-bd.org&prompt=login" class="button">Sign In with Gmail</a>
             <a href="https://dev-27zvae6yewwrl3m1.us.auth0.com/authorize?response_type=token&client_id=GqoX1y8guXZUic40jtRepYof1EpdnkMC&redirect_uri=https://alik005.github.io/gd-website/" class="button">Create Account</a>
 
 
@@ -324,45 +324,6 @@
 
         setInterval(showNextImage, 3000); // Change image every 3 seconds
     </script>
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.3.0/auth0-spa.min.js"></script>
-<script>
-    let auth0;
-
-    // Initialize Auth0 client
-    async function initAuth0() {
-        auth0 = await createAuth0Client({
-            domain: 'dev-27zvae6yewwrl3m1.us.auth0.com', // Replace with your Auth0 domain
-            client_id: 'GqoX1y8guXZUic40jtRepYof1EpdnkMC', // Replace with your Auth0 client ID
-            redirect_uri: 'https://alik005.github.io/gd-website/' // Your GitHub Pages URL
-        });
-    }
-
-    // Handle Sign In button click
-    document.getElementById('loginBtn').addEventListener('click', async () => {
-        const email = prompt('Please enter your email address:');
-
-        // Check if email ends with @bsdi-bd.org
-        if (email && email.endsWith('@bsdi-bd.org')) {
-            try {
-                // Redirect to Auth0 login page
-                await auth0.loginWithRedirect({
-                    connection: 'email', // Use the email connection for passwordless login
-                    email: email,
-                    redirect_uri: 'https://alik005.github.io/gd-website/' // Redirect after login
-                });
-                alert('Check your email for the login link!');
-            } catch (error) {
-                console.error('Error logging in:', error);
-                alert('Error logging in. Please try again.');
-            }
-        } else {
-            alert('Only @bsdi-bd.org email addresses are allowed.');
-        }
-    });
-
-    // Initialize Auth0 when the page loads
-    initAuth0();
-</script>
 
 </body>
 </html>
