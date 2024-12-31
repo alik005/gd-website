@@ -216,6 +216,71 @@
         </div>
     </div>
 
+ 
+    <script>
+        // Define the expected state value for CSRF protection
+        const expectedState = "secureRandomString123";
+
+        // Function to parse URL hash for tokens and state
+        function parseHash() {
+            const hash = window.location.hash.substring(1); // Remove the '#' character
+            return new URLSearchParams(hash);
+        }
+
+        // Function to clear the URL hash (for security)
+        function clearHash() {
+            window.history.replaceState(null, null, window.location.pathname);
+        }
+
+        // Validate login status and handle access
+        async function validateLogin() {
+            const params = parseHash();
+            const accessToken = params.get('access_token');
+            const returnedState = params.get('state');
+
+            // Redirect to login if the state is invalid
+            if (returnedState !== expectedState) {
+                console.error("Invalid state. Redirecting to login.");
+                window.location.href = "https://dev-27zvae6yewwrl3m1.us.auth0.com/authorize?response_type=token&client_id=GqoX1y8guXZUic40jtRepYof1EpdnkMC&redirect_uri=https://alik005.github.io/gd-website/careerwing.html&connection=google-oauth2&hd=bsdi-bd.org&prompt=login&state=secureRandomString123";
+                return;
+            }
+
+            // If access token is found, validate it and display the secure content
+            if (accessToken) {
+                console.log("Access token found. User authenticated.");
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('login').style.display = 'none';
+
+                // Optionally fetch user info
+                try {
+                    const response = await fetch("https://dev-27zvae6yewwrl3m1.us.auth0.com/userinfo", {
+                        headers: { Authorization: `Bearer ${accessToken}` }
+                    });
+
+                    if (response.ok) {
+                        const user = await response.json();
+                        console.log("User Info:", user);
+                    } else {
+                        console.error("Error validating token. Redirecting to login.");
+                        window.location.href = "https://dev-27zvae6yewwrl3m1.us.auth0.com/authorize?response_type=token&client_id=GqoX1y8guXZUic40jtRepYof1EpdnkMC&redirect_uri=https://alik005.github.io/gd-website/careerwing.html&connection=google-oauth2&hd=bsdi-bd.org&prompt=login&state=secureRandomString123";
+                    }
+                } catch (error) {
+                    console.error("Error fetching user info:", error);
+                }
+
+                // Clear the URL hash for security
+                clearHash();
+            } else {
+                // Redirect to login if no token is found
+                console.log("No token found. Redirecting to login.");
+                window.location.href = "https://dev-27zvae6yewwrl3m1.us.auth0.com/authorize?response_type=token&client_id=GqoX1y8guXZUic40jtRepYof1EpdnkMC&redirect_uri=https://alik005.github.io/gd-website/careerwing.html&connection=google-oauth2&hd=bsdi-bd.org&prompt=login&state=secureRandomString123";
+            }
+        }
+
+        // Run the validation on page load
+        validateLogin();
+    </script>
+
     <footer>
         <p>&copy; 2024 Career Guidance, Daffodil Polytechnic Institute. All Rights Reserved.</p>
     </footer>

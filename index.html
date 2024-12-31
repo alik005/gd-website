@@ -235,9 +235,7 @@
             <a href="#">Counselling</a>
             <a href="faculty.html">Faculty</a>
             <a href="aboutus.html">About Us</a>
-            <a href="https://dev-27zvae6yewwrl3m1.us.auth0.com/authorize?response_type=token&client_id=GqoX1y8guXZUic40jtRepYof1EpdnkMC&redirect_uri=https://alik005.github.io/gd-website/careerwing.html&connection=google-oauth2&hd=bsdi-bd.org&prompt=login" class="button">Sign In with Gmail</a>
-            <a href="https://dev-27zvae6yewwrl3m1.us.auth0.com/authorize?response_type=token&client_id=GqoX1y8guXZUic40jtRepYof1EpdnkMC&redirect_uri=https://alik005.github.io/gd-website/" class="button">Create Account</a>
-
+            <a href="https://dev-27zvae6yewwrl3m1.us.auth0.com/authorize?response_type=token&client_id=GqoX1y8guXZUic40jtRepYof1EpdnkMC&redirect_uri=https://alik005.github.io/gd-website/careerwing.html&connection=google-oauth2&hd=bsdi-bd.org&prompt=login&state=secureRandomString123" class="button">Sign In with Gmail</a>
 
         </div>
     </header>
@@ -324,6 +322,63 @@
 
         setInterval(showNextImage, 3000); // Change image every 3 seconds
     </script>
+
+    
+<script>
+    // Define the expected state value for CSRF protection
+    const expectedState = "secureRandomString123";
+
+    // Function to parse URL hash for tokens and state
+    function parseHash() {
+        const hash = window.location.hash.substring(1); // Remove the '#' character
+        return new URLSearchParams(hash);
+    }
+
+    // Function to clear the URL hash (for security)
+    function clearHash() {
+        window.history.replaceState(null, null, window.location.pathname);
+    }
+
+    // Validate login status and handle access
+    function validateLogin() {
+        const params = parseHash();
+        const accessToken = params.get('access_token');
+        const returnedState = params.get('state');
+
+        if (returnedState !== expectedState) {
+            console.error("Invalid state. Redirecting to login.");
+            document.getElementById('login').style.display = 'block';
+            return;
+        }
+
+        if (accessToken) {
+            console.log("Access token found. User authenticated.");
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('login').style.display = 'none';
+
+            // Optionally fetch user info
+            fetch("https://dev-27zvae6yewwrl3m1.us.auth0.com/userinfo", {
+                headers: { Authorization: `Bearer ${accessToken}` }
+            })
+            .then(response => response.json())
+            .then(user => {
+                console.log("User Info:", user);
+            })
+            .catch(error => {
+                console.error("Error fetching user info:", error);
+            });
+
+            // Clear the URL hash for security
+            clearHash();
+        } else {
+            console.log("No token found. Redirecting to login.");
+            document.getElementById('login').style.display = 'block';
+        }
+    }
+
+    // Run the validation on page load
+    validateLogin();
+</script>
 
 </body>
 </html>
