@@ -23,10 +23,15 @@
         let auth0;
 
         async function initAuth0() {
-            auth0 = await createAuth0Client({
-                domain: 'dev-27zvae6yewwrl3m1.us.auth0.com', // Replace with your Auth0 domain
-                client_id: 'bSpLMj3SfSgM4xLQc6DXj2cpe5bu6fRI' // Replace with your Auth0 client ID
-            });
+            try {
+                auth0 = await createAuth0Client({
+                    domain: 'dev-27zvae6yewwrl3m1.us.auth0.com', // Replace with your Auth0 domain
+                    client_id: 'bSpLMj3SfSgM4xLQc6DXj2cpe5bu6fRI' // Replace with your Auth0 client ID
+                });
+                console.log("Auth0 client initialized");
+            } catch (error) {
+                console.error("Error initializing Auth0:", error);
+            }
         }
 
         async function signIn() {
@@ -34,7 +39,6 @@
             const password = document.getElementById('password').value;
 
             try {
-                // Sign in with Auth0
                 await auth0.loginWithCredentials({
                     email: email,
                     password: password
