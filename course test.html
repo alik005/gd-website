@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course List Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #course-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #course-list li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #course-list li a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        #course-list li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Course List</h1>
+    <div id="course-list">
+        Loading Course List...
+    </div>
+</div>
+
+<script>
+    // Replace this with your Web App URL from Google Apps Script deployment
+    const courseSheetURL = 'https://script.google.com/macros/s/AKfycbz7nBGTlnV8E3J40bNOWkMFK27SJg_Lx66qEBDEe9WUPky97qoNMi1WVDN0B5Hkd7s/exec';
+
+    // Function to fetch and display data
+    function fetchDataFromSheet(sheetURL, elementId) {
+        fetch(sheetURL)
+            .then(response => response.json())  // Parse the response as JSON
+            .then(data => {
+                console.log('Data:', data);  // Log the fetched data to the console
+
+                if (!data || data.length === 0) {
+                    throw new Error('No data found!');
+                }
+
+                let listHtml = '';  // Variable to store HTML output
+
+                data.forEach(item => {
+                    const title = item.title;  // Access the 'title' from your sheet
+                    const link = item.link;    // Access the 'link' from your sheet
+                    listHtml += `<li><a href="${link}" target="_blank">${title}</a></li>`;  // Create list item with course name and link
+                });
+
+                // Add the list items to the page
+                document.getElementById(elementId).innerHTML = listHtml;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);  // Log the error if there's a problem with the request
+                document.getElementById(elementId).innerText = 'Failed to load data';  // Show a failure message
+            });
+    }
+
+    // Fetch the data and display it in the 'course-list' element
+    fetchDataFromSheet(courseSheetURL, 'course-list');
+</script>
+
+</body>
+</html>
