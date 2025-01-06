@@ -260,74 +260,53 @@
 
     <!-- JavaScript -->
     <script>
-       // Replace this with your Web App URL from Google Apps Script deployment
-    const courseSheetURL = 'https://script.google.com/macros/s/AKfycbz7nBGTlnV8E3J40bNOWkMFK27SJg_Lx66qEBDEe9WUPky97qoNMi1WVDN0B5Hkd7s/exec';
 
-    // Function to fetch and display data
-    function fetchDataFromSheet(sheetURL, elementId) {
-        fetch(sheetURL)
-            .then(response => response.json())  // Parse the response as JSON
-            .then(data => {
-                console.log('Data:', data);  // Log the fetched data to the console
+        // Google Sheets API Configuration
+        const spreadsheetId = '1CZv2jCzs6vJ9Av-3A-s6rim-3grE7u4vWwhj6oX1qPg'; // Replace with your spreadsheet ID
+        const apiKey = 'AIzaSyCLJmIaW-dM_nmCXXc525swrhEuogcsjA0'; // Replace with your API key
+        const sheets = {
+            courses: 'gdCourses', // Sheet name for the course list
+            pdfBooks: 'gdPDFBooks' // Sheet name for the PDF book list
+        };
 
-                if (!data || data.length === 0) {
-                    throw new Error('No data found!');
-                }
+        // Fetch data from a specific sheet
+        function fetchData(sheetName, elementId) {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.values || data.values.length < 2) {
+                        throw new Error('No data found!');
+                    }
+                    const headers = data.values[0];
+                    const rows = data.values.slice(1);
 
-                let listHtml = '';  // Variable to store HTML output
+                    // Assuming the sheet has "title" and "link" columns
+                    const titleIndex = headers.indexOf('title');
+                    const linkIndex = headers.indexOf('link');
+                    if (titleIndex === -1 || linkIndex === -1) {
+                        throw new Error('Sheet is missing "title" or "link" columns.');
+                    }
 
-                data.forEach(item => {
-                    const title = item.title;  // Access the 'title' from your sheet
-                    const link = item.link;    // Access the 'link' from your sheet
-                    listHtml += `<li><a href="${link}" target="_blank">${title}</a></li>`;  // Create list item with course name and link
+                    const listHtml = rows
+                        .map(row => {
+                            const title = row[titleIndex];
+                            const link = row[linkIndex];
+                            return `<li><a href="${link}" target="_blank">${title}</a></li>`;
+                        })
+                        .join('');
+                    document.getElementById(elementId).innerHTML = listHtml;
+                })
+                .catch(error => {
+                    console.error(`Error fetching data from ${sheetName}:`, error);
+                    document.getElementById(elementId).innerText = 'Failed to load data';
                 });
+        }
 
-                // Add the list items to the page
-                document.getElementById(elementId).innerHTML = listHtml;
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);  // Log the error if there's a problem with the request
-                document.getElementById(elementId).innerText = 'Failed to load data';  // Show a failure message
-            });
-    }
+        // Load data from both sheets
+        fetchData(sheets.courses, 'course-list');
+        fetchData(sheets.pdfBooks, 'pdf-list');
 
-    // Fetch the data and display it in the 'course-list' element
-    fetchDataFromSheet(courseSheetURL, 'course-list');
-
-
- // Replace this with your Web App URL from Google Apps Script deployment
- const pdfSheetURL = 'https://script.google.com/macros/s/AKfycbz7nBGTlnV8E3J40bNOWkMFK27SJg_Lx66qEBDEe9WUPky97qoNMi1WVDN0B5Hkd7s/exec';
-
-// Function to fetch and display data
-function fetchDataFromSheet(sheetURL, elementId) {
-    fetch(sheetURL)
-        .then(response => response.json())  // Parse the response as JSON
-        .then(data => {
-            console.log('Data:', data);  // Log the fetched data to the console
-
-            if (!data || data.length === 0) {
-                throw new Error('No data found!');
-            }
-
-            let listHtml = '';  // Variable to store HTML output
-
-            data.forEach(item => {
-                const title = item.title;  // Access the 'title' from your sheet
-                const link = item.link;    // Access the 'link' from your sheet
-                listHtml += `<li><a href="${link}" target="_blank">${title}</a></li>`;  // Create list item with course name and link
-            });
-
-            // Add the list items to the page
-            document.getElementById(elementId).innerHTML = listHtml;
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);  // Log the error if there's a problem with the request
-            document.getElementById(elementId).innerText = 'Failed to load data';  // Show a failure message
-        });
-}
-
-// Fetch the data and display it in the 'course-list' element
-fetchDataFromSheet(courseSheetURL, 'course-list');
 
 
         // Fetch Outcome Gallery (Example static images)
