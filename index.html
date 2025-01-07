@@ -307,7 +307,10 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Graphic Design Department, Daffodil Polytechnic Institute. All Rights Reserved.</p>
+        <p>&copy; 2024 Graphic Design Department, Daffodil Polytechnic Institute. All Rights Reserved<button id="gd-button"></button></p>
+       
+        
+
     </footer>
 
     <script>
@@ -379,6 +382,17 @@
 
     // Run the validation on page load
     validateLogin();
+</script>
+
+<script>
+    document.getElementById('gd-button').addEventListener('click', function () {
+        const password = prompt('Enter the password:');
+        if (password === '$@msu') {
+            window.location.href = 'admin.html'; // Redirect to the admin page
+        } else {
+            alert('Incorrect password!');
+        }
+    });
 </script>
 
 </body>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Graphic Design</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: #003366;
+            padding: 5px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            margin: 0 10px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        nav a:hover:not(.active) {
+  background-color: #0073e6;
+}
+
+.active {
+  background-color: #3001ff;
+}
+        nav .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        nav .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            z-index: 1;
+        }
+        .dropdown-content a {
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Main Container */
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-top: 40px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .grid img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Form Styles */
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        form label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Links and Lists */
+        #course-list a, #pdf-list a {
+            text-decoration: none;
+            color: #007BFF;
+            margin: 5px 0;
+            display: block;
+        }
+        #course-list a:hover, #pdf-list a:hover {
+            color: #0056b3;
+        }
+
+        #course-list a:hover, #pdf-list a:hover {
+            color: #0056b3;
+        }
+
+        /* Loading message */
+        .loading {
+            color: #888;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        #course-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #course-list li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            #course-list a:hover, #pdf-list a:hover {
+            color: #0056b3;
+        }}
+        #course-list li a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        
+        #pdf-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #pdf-list li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #pdf-list li a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 1px;
+            margin-top: 20px;
+            
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="careerwing.html">Home</a>
+        <div class="dropdown">
+            <a href="#">Portfolio</a>
+            <div class="dropdown-content">
+                <a href="https://carbonmade.com/portfolios">Carbonmade</a>
+                <a href="https://www.behance.net/">Behance</a>
+                <a href="https://dribbble.com/">Dribbble</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Job Opening</a>
+            <div class="dropdown-content">
+                <a href="https://skill.jobs/browse-jobs?search=Art%20director&location=&division=&min_salary=&max_salary=&type=&workplace=&level=">Skill jobs</a>
+                <a href="https://www.bdjobs.com/">Bdjobs</a>
+                <a href="https://www.ejobs.com.bd/">E jobs</a>
+            </div>
+        </div>
+        <a href="https://opintopolku.fi/konfo/en/haku/art%20director?order=desc&size=20&sort=score">Higher Study</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+
+        <!-- Course List Section -->
+        <h2>Course List</h2>
+        <div id="course-list" class="loading">Loading Course List...</div>
+
+        <!-- Course Request Section -->
+        <h2>Course Request</h2>
+        <form id="course-request-form">
+            <label for="course-request">Enter your Course Request:</label>
+            <textarea id="course-request" name="course-request" rows="4"></textarea>
+            <button type="submit">Submit Request</button>
+        </form>
+
+        <!-- PDF Book List Section -->
+        <h2>PDF Book List</h2>
+        <div id="pdf-list" class="loading">Loading PDF Book List...</div>
+
+        
+
+        <!-- Feedback Section -->
+        <h2>Feedback</h2>
+        <form id="feedback-form">
+            <label for="feedback">Enter your Feedback:</label>
+            <textarea id="feedback" name="feedback" rows="4"></textarea>
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+
+        // Google Sheets API Configuration
+        const spreadsheetId = '1CZv2jCzs6vJ9Av-3A-s6rim-3grE7u4vWwhj6oX1qPg'; // Replace with your spreadsheet ID
+        const apiKey = 'AIzaSyCLJmIaW-dM_nmCXXc525swrhEuogcsjA0'; // Replace with your API key
+        const sheets = {
+            courses: 'artdirC', // Sheet name for the course list
+            pdfBooks: 'artdirPDF' // Sheet name for the PDF book list
+        };
+
+        // Fetch data from a specific sheet
+        function fetchData(sheetName, elementId) {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.values || data.values.length < 2) {
+                        throw new Error('No data found!');
+                    }
+                    const headers = data.values[0];
+                    const rows = data.values.slice(1);
+
+                    // Assuming the sheet has "title" and "link" columns
+                    const titleIndex = headers.indexOf('title');
+                    const linkIndex = headers.indexOf('link');
+                    if (titleIndex === -1 || linkIndex === -1) {
+                        throw new Error('Sheet is missing "title" or "link" columns.');
+                    }
+
+                    const listHtml = rows
+                        .map(row => {
+                            const title = row[titleIndex];
+                            const link = row[linkIndex];
+                            return `<li><a href="${link}" target="_blank">${title}</a></li>`;
+                        })
+                        .join('');
+                    document.getElementById(elementId).innerHTML = listHtml;
+                })
+                .catch(error => {
+                    console.error(`Error fetching data from ${sheetName}:`, error);
+                    document.getElementById(elementId).innerText = 'Failed to load data';
+                });
+        }
+
+        // Load data from both sheets
+        fetchData(sheets.courses, 'course-list');
+        fetchData(sheets.pdfBooks, 'pdf-list');
+
+        // Handle Form Submission (using Formspree or a custom solution for email)
+        function submitForm(formId, emailAddress) {
+            const form = document.getElementById(formId);
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+                fetch('https://formspree.io/f/xgvvpzlo', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Form submitted successfully!');
+                })
+                .catch(error => {
+                    alert('Error submitting form');
+                    console.error('Form submission error:', error);
+                });
+            });
+        }
+
+        // Fetch Google Sheets Data and Display
+        fetchDataFromSheet(courseSheetURL, 'https://script.google.com/macros/s/AKfycbz7nBGTlnV8E3J40bNOWkMFK27SJg_Lx66qEBDEe9WUPky97qoNMi1WVDN0B5Hkd7s/exec');
+        fetchDataFromSheet(pdfSheetURL, 'pdf-list');
+        fetchOutcomeGallery();
+
+        // Submit Feedback & Course Request
+        submitForm('feedback-form', 'graphicdesign4@bsdi-bd.org');
+        submitForm('course-request-form', 'graphicdesign4@bsdi-bd.org');
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Graphic Design Department, Daffodil Polytechnic Institute. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
