@@ -209,20 +209,19 @@
         <div class="dropdown">
             <a href="#">Portfolio</a>
             <div class="dropdown-content">
-                <a href="#">Option 1</a>
-                <a href="#">Option 2</a>
-                <a href="#">Option 3</a>
+                <a href="https://www.behance.net/">Behance</a>
+                <a href="https://dribbble.com/">Dribbble</a>
             </div>
         </div>
         <div class="dropdown">
             <a href="#">Job Opening</a>
             <div class="dropdown-content">
-                <a href="#">Job 1</a>
-                <a href="#">Job 2</a>
-                <a href="#">Job 3</a>
+                <a href="https://skill.jobs/browse-jobs?search=graphic%20design&location=&division=&min_salary=&max_salary=&type=&workplace=&level=">Skill jobs</a>
+                <a href="https://www.bdjobs.com/">Bdjobs</a>
+                <a href="https://www.ejobs.com.bd/">E jobs</a>
             </div>
         </div>
-        <a href="#">Higher Study</a>
+        <a href="https://opintopolku.fi/konfo/en/haku/graphic%20design?order=desc&size=20&sort=score">Higher Study</a>
     </nav>
 
     <!-- Main Content -->
@@ -245,9 +244,7 @@
         <h2>PDF Book List</h2>
         <div id="pdf-list" class="loading">Loading PDF Book List...</div>
 
-        <!-- Outcome Gallery Section -->
-        <h2>Outcome Gallery</h2>
-        <div class="grid" id="outcome-gallery" class="loading">Loading Outcome Gallery...</div>
+        
 
         <!-- Feedback Section -->
         <h2>Feedback</h2>
@@ -306,20 +303,6 @@
         // Load data from both sheets
         fetchData(sheets.courses, 'course-list');
         fetchData(sheets.pdfBooks, 'pdf-list');
-
-
-
-        // Fetch Outcome Gallery (Example static images)
-        function fetchOutcomeGallery() {
-            let galleryDiv = document.getElementById('outcome-gallery');
-            // Example static images (replace with dynamic data from Google Form submissions)
-            const images = ["image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"];
-            images.forEach(image => {
-                let img = document.createElement('img');
-                img.src = "https://your-image-url/" + image; // Replace with your image URL
-                galleryDiv.appendChild(img);
-            });
-        }
 
         // Handle Form Submission (using Formspree or a custom solution for email)
         function submitForm(formId, emailAddress) {
