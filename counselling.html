@@ -73,13 +73,20 @@
             <input type="date" id="date" name="date" required>
 
             <label for="time-slot">Choose a Time Slot:</label>
+
+            
             <select id="time-slot" name="time-slot" required>
                 <option value="2:00 PM">2:00 PM</option>
                 <option value="2:30 PM">2:30 PM</option>
                 <option value="3:00 PM">3:00 PM</option>
                 <option value="3:30 PM">3:30 PM</option>
             </select>
+            <label for="platform">Choose Platform:</label>
 
+            <select id="platform" name="platform" required>
+                <option value="Online">Online</option>
+                <option value="Offline">Offline</option>
+            </select>
             <button type="button" onclick="bookAppointment()">Book Appointment</button>
         </form>
 
@@ -95,7 +102,7 @@
             const email = document.getElementById('email').value;
             const date = document.getElementById('date').value;
             const timeSlot = document.getElementById('time-slot').value;
-
+            const platform = document.getElementById('platform').value;
             if (name && email && date && timeSlot) {
                 const appointmentDetails = {
                     name,
@@ -103,6 +110,7 @@
                     date,
                     timeSlot,
                     meetingLink: "https://meet.google.com/bpv-wibj-tvt",
+                    platform,
                     location: "AB 1, 3rd floor, desk no: 48"
                 };
 
@@ -114,7 +122,7 @@
                         },
                         body: JSON.stringify({
                             service_id: "service_1cfyyq7", // Replace with your EmailJS service ID
-                            template_id: "template_nrrzzs6", // Replace with your EmailJS template ID
+                            template_id: "template_hyeyu7l", // Replace with your EmailJS template ID
                             user_id: "Ble9gBQAhKVkDH_yn", // Replace with your EmailJS user ID
                             template_params: appointmentDetails
                         })
